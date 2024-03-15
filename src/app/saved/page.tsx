@@ -57,7 +57,6 @@ const Page = ({ searchParams }: { searchParams: { title: string } }) => {
 			</nav>
 			<div className='pt-10'>
 				{activeTab === "Photos" && <Photos photos={searchParams.title ? filteredPhotos : savedPhotos} />}
-				{/* {activeTab === "Photos" && <Photos photos={searchParams.title ? filteredPhotos : savedPhotos} />} */}
 				{activeTab === "Posts" && <Posts posts={searchParams.title ? filteredPosts : savedPosts} />}
 			</div>
 		</div>

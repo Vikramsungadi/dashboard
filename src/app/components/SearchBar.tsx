@@ -5,6 +5,7 @@ import { cn } from "@/lib/cn";
 import { Search } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+
 interface Props {
 	className?: string;
 }

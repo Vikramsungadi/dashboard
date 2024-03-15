@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 import { TPhoto } from "@/types";
-import NotFound from "../not-found";
+import ErrorPage from "../components/ErrorPage";
 import Photo from "./Photo";
 import PhotoSkeleton from "./PhotoSkeleton";
 ``;
@@ -13,7 +13,7 @@ const Photos = ({ photos, ...props }: Props) => {
 	return (
 		<>
 			{photos.length === 0 && (
-				<NotFound buttontext='Explore photos' redirectLink='/photos/1' message='No saved photos' />
+				<ErrorPage buttontext='Explore photos' redirectLink='/photos/1' message='No saved photos' />
 			)}
 			<div
 				className={cn(

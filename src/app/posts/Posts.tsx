@@ -1,6 +1,6 @@
 import { cn } from "@/lib/cn";
 import { TPost } from "@/types";
-import NotFound from "../not-found";
+import ErrorPage from "../components/ErrorPage";
 import Post from "./Post";
 import PostSkeleton from "./PostSkeleton";
 interface Props {
@@ -11,7 +11,7 @@ const Posts = ({ posts, ...props }: Props) => {
 	return (
 		<>
 			{posts.length === 0 && (
-				<NotFound buttontext='Explore posts' redirectLink='/posts/1' message='No saved posts' />
+				<ErrorPage buttontext='Explore posts' redirectLink='/posts/1' message='No saved posts' />
 			)}
 			<div
 				className={cn(

@@ -2,9 +2,11 @@ import { cn } from "@/lib/cn";
 import StoreProvider from "@/redux/StoreProvider";
 import type { Metadata } from "next";
 import { Inter, Roboto } from "next/font/google";
+import { Suspense } from "react";
 import App from "./App";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
+import SearchInputSkeleton from "./components/SearchInputSkeleton";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,7 +30,9 @@ export default function RootLayout({
 					<App>
 						<Header />
 						<main className='mx-auto flex max-w-screen-2xl flex-col justify-between px-4 py-4 md:px-8 md:py-12'>
-							<SearchBar className='mx-auto mb-6 mt-2 w-full  md:hidden' />
+							<Suspense fallback={<SearchInputSkeleton />}>
+								<SearchBar className='mx-auto mb-6 mt-2 w-full  md:hidden' />
+							</Suspense>
 							{children}
 						</main>
 					</App>

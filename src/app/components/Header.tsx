@@ -4,8 +4,10 @@ import { cn } from "@/lib/cn";
 import { Bookmark, Images, StickyNote } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Suspense } from "react";
 import DesktopNav from "./DesktopNav";
 import SearchBar from "./SearchBar";
+import SearchInputSkeleton from "./SearchInputSkeleton";
 
 export const links = [
 	["Photos", "/photos/1", Images],
@@ -28,7 +30,9 @@ const Header = () => {
 					DASHBOARD
 				</Link>
 
-				<SearchBar className={cn("max-sm:hidden", home && "invisible")} />
+				<Suspense fallback={<SearchInputSkeleton />}>
+					<SearchBar className={cn("max-sm:hidden", home && "invisible")} />
+				</Suspense>
 
 				<DesktopNav />
 			</div>

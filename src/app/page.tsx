@@ -8,7 +8,7 @@ export default async function Home() {
 	let posts = await fetchPosts({ _limit: 5 });
 	return (
 		<div className='flex flex-col gap-20'>
-			<div className='flex flex-col gap-10'>
+			<div className='flex flex-col gap-6 md:gap-10'>
 				<h2 className='bg-gray-100 px-3.5 py-1.5  text-lg font-bold text-gray-600'>PHOTOS</h2>
 				<Photos photos={photos} />
 				<Link
@@ -17,7 +17,7 @@ export default async function Home() {
 					More Photos
 				</Link>
 			</div>
-			<div className='flex flex-col gap-10'>
+			<div className='flex flex-col gap-6 md:gap-10'>
 				<h2 className='bg-gray-100 px-3.5 py-1.5 text-lg font-bold text-gray-600 '>POSTS</h2>
 				<Posts posts={posts} />
 				<Link

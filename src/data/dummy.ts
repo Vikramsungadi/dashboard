@@ -115,6 +115,13 @@ export const dummyPhotos = [
 	},
 	{
 		albumId: 1,
+		id: 8,
+		title: "aut porro officiis laborum odit ea laudantium corporis",
+		url: "https://via.placeholder.com/600/54176f",
+		thumbnailUrl: "https://via.placeholder.com/150/54176f",
+	},
+	{
+		albumId: 1,
 		id: 9,
 		title: "qui eius qui autem sed",
 		url: "https://via.placeholder.com/600/51aa97",

@@ -3,7 +3,7 @@ import { TPhoto } from "@/types";
 import NotFound from "../not-found";
 import Photo from "./Photo";
 import PhotoSkeleton from "./PhotoSkeleton";
-
+``;
 interface Props {
 	photos: TPhoto[];
 	skeleton?: boolean;

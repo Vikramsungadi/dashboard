@@ -21,7 +21,6 @@ const Page = async ({ params, searchParams }: Props) => {
 	const LIMIT = 20;
 
 	if (path === "photos") {
-		console.log("photos");
 		let photos = await fetchPhotos({ _start: currentPage * 20, _limit: LIMIT });
 		let allPhotos = await fetchPhotos({});
 
@@ -54,7 +53,6 @@ const Page = async ({ params, searchParams }: Props) => {
 		);
 	}
 	if (path === "posts") {
-		console.log("posts");
 		let posts = await fetchPosts({ _limit: LIMIT, _start: currentPage * 20 });
 		let allPosts = await fetchPosts({});
 		let totalPosts = allPosts.length;

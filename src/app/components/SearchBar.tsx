@@ -3,7 +3,7 @@
 import useDebounce from "@/hooks/useDebounce";
 import { cn } from "@/lib/cn";
 import { Search } from "lucide-react";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 interface Props {
 	className?: string;
@@ -11,9 +11,11 @@ interface Props {
 const SearchBar = (props: Props) => {
 	let router = useRouter();
 	let pathname = usePathname();
+	let searchParams = useSearchParams();
+	console.log(searchParams.size);
 
 	let isSavedSection = pathname.includes("saved");
-	const [searchTerm, setsearchTerm] = useState<string>("");
+	const [searchTerm, setSearchTerm] = useState<string>("");
 	const debouncedValue = useDebounce(searchTerm, 500);
 
 	function replaceUrl(all?: boolean) {
@@ -23,6 +25,11 @@ const SearchBar = (props: Props) => {
 			router.replace(pathname);
 		}
 	}
+	useEffect(() => {
+		if (searchParams.size === 0) {
+			setSearchTerm("");
+		}
+	}, [searchParams]);
 
 	useEffect(() => {
 		replaceUrl();
@@ -38,8 +45,9 @@ const SearchBar = (props: Props) => {
 			<Search className='size-9 md:size-8 ' />
 			<input
 				type='text'
+				value={searchTerm}
 				onChange={(e) => {
-					setsearchTerm(e.target.value);
+					setSearchTerm(e.target.value);
 				}}
 				className='peer  w-full rounded-md border-none  text-sm font-normal caret-gray-400 outline-none'
 				placeholder='Search Title'

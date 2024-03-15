@@ -1,24 +1,33 @@
+import { cn } from "@/lib/cn";
 import { TPhoto } from "@/types";
+import NotFound from "../not-found";
 import Photo from "./Photo";
+import PhotoSkeleton from "./PhotoSkeleton";
 
 interface Props {
 	photos: TPhoto[];
+	skeleton?: boolean;
 }
 
 const Photos = ({ photos, ...props }: Props) => {
 	return (
-		<div className='grid min-h-screen grid-cols-[repeat(auto-fit,minmax(200px,256px))]  gap-10'>
+		<>
 			{photos.length === 0 && (
-				<div
-					className='flex h-[50vh] w-screen items-center justify-center text-center
-				 text-3xl font-semibold'>
-					Not Found
-				</div>
+				<NotFound buttontext='Explore photos' redirectLink='/photos/1' message='No saved photos' />
 			)}
-			{photos.map((photo) => (
-				<Photo key={photo.id} photo={photo} />
-			))}
-		</div>
+			<div
+				className={cn(
+					"grid  grid-cols-1 justify-center gap-5  md:grid-cols-[repeat(auto-fit,minmax(200px,256px))]  md:gap-10",
+				)}>
+				{photos.map((photo) => {
+					return props.skeleton ? (
+						<PhotoSkeleton key={photo.id} photo={photo} />
+					) : (
+						<Photo key={photo.id} photo={photo} />
+					);
+				})}
+			</div>
+		</>
 	);
 };
 

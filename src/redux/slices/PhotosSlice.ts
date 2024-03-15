@@ -35,7 +35,6 @@ export const savedPhotosSlice = createSlice({
 		fetchSavedPhotos: (state) => {
 			let locallySavedPhotos = localStorage.getItem(name);
 
-			console.log("locallySavedPhotos", locallySavedPhotos);
 			if (locallySavedPhotos) {
 				let parsedData: PhotosState = JSON.parse(locallySavedPhotos);
 				state.photos = parsedData.photos;

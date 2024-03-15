@@ -19,7 +19,6 @@ export async function fetchPhotos(params: queryParams) {
 
 	let finalUrl = url + (queryString ?? "");
 
-	console.log("finalUrl", finalUrl);
 	let photos = await axios.get(finalUrl).then((res: AxiosResponse<TPhoto[], any>) => res.data);
 
 	return photos;
@@ -36,7 +35,6 @@ export async function fetchPosts(params: queryParams) {
 				.join("&");
 	}
 	let finalUrl = url + (queryString ?? "");
-	console.log("finalUrl", finalUrl);
 
 	let posts = await axios.get(finalUrl).then((res: AxiosResponse<TPost[], any>) => res.data);
 

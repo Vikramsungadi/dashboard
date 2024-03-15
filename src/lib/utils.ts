@@ -6,3 +6,12 @@ export const capitalize = (word: string) => {
 export const saveToLocalStorage = (key: string, value: any) => {
 	localStorage.setItem(key, value);
 };
+
+export const getRandomValueFromArray = (arr: any[]) => {
+	let randomIndex = Math.floor(Math.random() * arr.length);
+	return arr[randomIndex];
+};
+
+export function isMobileDevice() {
+	return /iPhone|iPad|iPod|Android|webOS|BlackBerry|Windows Phone/i.test(navigator.userAgent);
+}

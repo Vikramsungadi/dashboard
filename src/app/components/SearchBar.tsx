@@ -1,21 +1,24 @@
 "use client";
 
 import useDebounce from "@/hooks/useDebounce";
+import { cn } from "@/lib/cn";
 import { Search } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 interface Props {
-	setValue?: Dispatch<SetStateAction<string>>;
+	className?: string;
 }
 const SearchBar = (props: Props) => {
 	let router = useRouter();
 	let pathname = usePathname();
+
+	let isSavedSection = pathname.includes("saved");
 	const [searchTerm, setsearchTerm] = useState<string>("");
 	const debouncedValue = useDebounce(searchTerm, 500);
 
-	function replaceUrl() {
+	function replaceUrl(all?: boolean) {
 		if (searchTerm !== "") {
-			router.replace(pathname + `?title=${searchTerm}`);
+			router.replace(pathname + `?search${all ? "all" : ""}=${searchTerm.toLowerCase()}`);
 		} else {
 			router.replace(pathname);
 		}
@@ -26,27 +29,29 @@ const SearchBar = (props: Props) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [debouncedValue]);
 
-	// let paths = pathname.split("/").filter((pathname) => pathname !== "");
-
-	// let seg = useSelectedLayoutSegments();
-	// let url = "/" + paths.slice(0, 2).join("/") + ("/" + (searchTerm ?? ""));
-
-	// console.log("SearchBar", pathname);
-	// console.log("SearchBarURL", url);
-	// console.log("SearchBarSEG", seg);
 	return (
-		<div className='mx-auto  ml-auto flex w-[25%] items-center gap-4 rounded-md border border-gray-300/80 pl-2'>
-			<Search className='size-5' />
+		<div
+			className={cn(
+				"relative  isolate mx-auto ml-auto flex items-center gap-4 rounded-md pl-2   md:w-[25%] ",
+				props.className,
+			)}>
+			<Search className='size-9 md:size-8 ' />
 			<input
 				type='text'
 				onChange={(e) => {
 					setsearchTerm(e.target.value);
 				}}
-				className='w-full rounded-md border-none py-1.5 font-normal caret-gray-400 outline-none'
+				className='peer  w-full rounded-md border-none  text-sm font-normal caret-gray-400 outline-none'
 				placeholder='Search Title'
 			/>
-			<button onClick={replaceUrl} className='h-full rounded-md bg-gray-100 px-4 text-sm'>
-				Search
+			<div className='absolute -inset-0.5 -z-10 w-[calc(100%+4px)] rounded-md border-[1.5px] border-gray-200/80 shadow-sm transition-colors peer-focus:animate-pulse peer-focus:border-gray-400 ' />
+			<button
+				onClick={isSavedSection ? () => {} : () => replaceUrl(true)}
+				className={cn(
+					"m-0.5 min-w-fit rounded-md border border-gray-100 bg-gray-100 px-4 py-1.5 text-sm font-medium text-gray-600 shadow-sm transition-colors active:border-gray-300 active:shadow-black/20",
+					isSavedSection && "opacity-0",
+				)}>
+				Search All
 			</button>
 		</div>
 	);

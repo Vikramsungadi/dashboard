@@ -7,25 +7,24 @@ import { useState } from "react";
 import Photos from "../photos/Photos";
 import Posts from "../posts/Posts";
 
-const Page = ({ searchParams }: { searchParams: { title: string } }) => {
+const Page = ({ searchParams }: { searchParams: { search: string } }) => {
 	let TABS = [
 		["Photos", Images],
 		["Posts", StickyNote],
 	] as const;
 	const [activeTab, setActiveTab] = useState<(typeof TABS)[number][0]>(TABS[0][0]);
-	// console.log(activeTab);
 
 	const savedPosts = useAppSelector((state) => state.savedPosts.posts);
 	const savedPhotos = useAppSelector((state) => state.savedPhotos.photos);
 
-	let filteredPhotos = savedPhotos.filter((photo) => photo.title.includes(searchParams.title));
-	let filteredPosts = savedPosts.filter((post) => post.title.includes(searchParams.title));
+	let filteredPhotos = savedPhotos.filter((photo) => photo.title.toLowerCase().includes(searchParams.search));
+	let filteredPosts = savedPosts.filter((post) => post.title.toLowerCase().includes(searchParams.search));
 
 	return (
 		<div>
 			{/* NAVBAR */}
 			<nav>
-				<ul className=' grid grid-cols-2 justify-items-center font-medium  *:p-2 *:text-center'>
+				<ul className='grid grid-cols-2 justify-items-center font-medium  *:text-center max-sm:*:p-[5px] md:*:p-2'>
 					{TABS.map(([tab, Icon], index) => {
 						let isActiveTab = activeTab === tab;
 						return (
@@ -46,8 +45,8 @@ const Page = ({ searchParams }: { searchParams: { title: string } }) => {
 										isActiveTab ? "text-blue-950" : "text-gray-600",
 									)}>
 									<div className='mx-auto flex w-fit items-center  gap-2'>
-										<Icon className='size-5' />
-										<span>{tab}</span>
+										<Icon className='size-4 md:size-5' />
+										<span className='max-sm:text-sm'>{tab}</span>
 									</div>
 								</button>
 							</li>
@@ -56,8 +55,8 @@ const Page = ({ searchParams }: { searchParams: { title: string } }) => {
 				</ul>
 			</nav>
 			<div className='pt-10'>
-				{activeTab === "Photos" && <Photos photos={searchParams.title ? filteredPhotos : savedPhotos} />}
-				{activeTab === "Posts" && <Posts posts={searchParams.title ? filteredPosts : savedPosts} />}
+				{activeTab === "Photos" && <Photos photos={searchParams.search ? filteredPhotos : savedPhotos} />}
+				{activeTab === "Posts" && <Posts posts={searchParams.search ? filteredPosts : savedPosts} />}
 			</div>
 		</div>
 	);

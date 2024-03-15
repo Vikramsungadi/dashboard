@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+	overflow-y: scroll;
+}
 body {
 	color: rgb(var(--foreground-rgb));
 	background: linear-gradient(to bottom, transparent, rgb(var(--background-end-rgb)))

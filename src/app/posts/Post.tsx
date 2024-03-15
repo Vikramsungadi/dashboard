@@ -10,7 +10,7 @@ const Post = ({ post, ...props }: Props) => {
 	return (
 		<div
 			key={post.id}
-			className='group relative isolate flex flex-col gap-4 rounded-md border border-gray-100 p-4 shadow-sm hover:border-gray-300'>
+			className='group relative isolate flex h-full flex-col gap-4 rounded-md border border-gray-100 p-4 shadow-sm hover:border-gray-300'>
 			<BookmarkButton
 				saving='post'
 				obj={post}
